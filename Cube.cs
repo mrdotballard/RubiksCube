@@ -46,6 +46,87 @@ namespace RubiksCube
                         RightRotation(upFace, backFace, downFace, frontFace, false);
                         TransformFace(rightFace, false);
                         break;
+                    case "L":
+                        LeftRotation(upFace, frontFace, downFace, backFace, true);
+                        TransformFace(leftFace, true);
+                        break;
+                    case "L'":
+                        LeftRotation(upFace, frontFace, downFace, backFace, false);
+                        TransformFace(leftFace, false);
+                        break;
+                }
+            }
+        }
+
+        public void LeftRotation(string[,] upFace, string[,] frontFace, string[,] downFace, string[,] backFace, bool clockwise)
+        {
+            string[] upBuffer = new string[3] { upFace[0, 0], upFace[1, 0], upFace[2, 0] };
+            if (clockwise)
+            {
+                // back -> up
+                int c = 2;
+                for (var i = 0; i < 3; i++)
+                {
+                    upFace[i, 0] = backFace[c, 2];
+                    //upFace[1, 0] = backFace[1, 2];
+                    //upFace[2, 0] = backFace[0, 2];
+                    c--;
+                }
+
+                //down -> back
+                int d = 2;
+                for (var i = 0; i < 3; i++)
+                {
+                    backFace[i, 2] = downFace[d, 0];
+                    //backFace[1, 2] = downFace[1, 0];
+                    //backFace[2, 2] = downFace[0, 0];
+                    d--;
+                }
+                //front -> down
+                //up->front
+                for (var i = 0; i < 3; i++)
+                {
+                    downFace[i, 0] = frontFace[i, 0];
+                    frontFace[i, 0] = upBuffer[i];
+                }
+                //up-> front
+                //for (var i = 0; i < 3; i++)
+                //{
+                //    frontFace[i, 0] = upBuffer[i];
+                //}
+            }
+            else
+            {
+                //front -> up
+                //down -> front
+                for (int i = 0; i < 3; i++)
+                {
+                    upFace[i, 0] = frontFace[i, 0];
+                    frontFace[i, 0] = downFace[i, 0];
+                }
+
+                //down -> front
+                //for (int i = 0; i < 3; i++)
+                //{
+                //    frontFace[i, 0] = downFace[i, 0];
+                //}
+
+                //back -> down
+                int c = 2;
+                for (int i = 0; i < 3; i++)
+                {
+                    downFace[i, 0] = backFace[c, 2];
+                    //downFace[1, 0] = backFace[1, 2];
+                    //downFace[2, 0] = backFace[0, 2];
+                    c--;
+                }
+
+                //up -> back
+                int d = 2;
+                for (int i = 0; i < 3; i++)
+                {
+                    backFace[i, 2] = upBuffer[d];
+                    d--;
                 }
             }
         }
@@ -53,60 +134,68 @@ namespace RubiksCube
         public void RightRotation(string[,] upFace, string[,] backFace, string[,] downFace, string[,] frontFace, bool clockwise)
         {
             string[] upBuffer = new string[3] { upFace[2, 2], upFace[1, 2], upFace[0, 2] };
-            //string[] backBuffer = new string[3] { backFace[2, 0], backFace[1, 0], backFace[0, 0] };
 
             if (clockwise)
             {
                 //front -> up
+                //down -> front
                 for(var i = 0; i < 3; i++)
                 {
                     upFace[i, 2] = frontFace[i, 2];
-                }
-                //down -> front
-                for (var i = 0; i < 3; i++)
-                {
                     frontFace[i, 2] = downFace[i, 2];
+                    //backFace[i, 0] = upBuffer[i];
                 }
+
                 //back -> down
+                int c = 2;
                 for (var i = 0; i < 3; i++)
                 {
-                    downFace[0, 2] = backFace[2, 0];
-                    downFace[1, 2] = backFace[1, 0];
-                    downFace[2, 2] = backFace[0, 0];
+                    downFace[i, 2] = backFace[c, 0];
+                    //downFace[1, 2] = backFace[1, 0];
+                    //downFace[2, 2] = backFace[0, 0];
+                    c--;
                 }
+
                 //up -> back
                 for (var i = 0; i < 3; i++)
                 {
-                backFace[i, 0] = upBuffer[i];
+                    backFace[i, 0] = upBuffer[i];
                 }
+
             }
             else
             {
                 //back -> up
+                int c = 2;
                 for(var i = 0; i < 3; i++)
                 {
-                    upFace[0, 2] = backFace[2, 0];
-                    upFace[1, 2] = backFace[1, 0];
-                    upFace[2, 2] = backFace[0, 0];
+                    upFace[i, 2] = backFace[c, 0];
+                    //upFace[1, 2] = backFace[1, 0];
+                    //upFace[2, 2] = backFace[0, 0];
+                    c--;
                 }
-                //down -> back
-                for(var i = 0; i < 3; i++)
+
+                // down->back
+                int d = 2;
+                for (var i = 0; i < 3; i++)
                 {
-                    backFace[0, 0] = downFace[2, 2];
-                    backFace[1, 0] = downFace[1, 2];
-                    backFace[2, 0] = downFace[0, 2];
+                    backFace[i, 0] = downFace[d, 2];
+                    //backFace[1, 0] = downFace[1, 2];
+                    //backFace[2, 0] = downFace[0, 2];
+                    d--;
                 }
+
                 //front -> down
-                for(var i = 0; i < 3; i++)
+                for (var i = 0; i < 3; i++)
                 {
                     downFace[i, 2] = frontFace[i, 2];
                 }
                 //up -> front
-                int c = 2;
+                int e = 2;
                 for (var i = 0; i < 3; i++)
                 {
-                    frontFace[i, 2] = upBuffer[c];
-                    c--;
+                    frontFace[i, 2] = upBuffer[e];
+                    e--;
                 }
             }
         }
@@ -120,9 +209,7 @@ namespace RubiksCube
                 int c = 2;
                 for (var i = 0; i < 3; i++)
                 {
-                    upFace[2, 0] = leftFace[2, 2];
-                    upFace[2, 1] = leftFace[1, 2];
-                    upFace[2, 2] = leftFace[0, 2];
+                    upFace[2, i] = leftFace[c, 2];
                     c--;
                 }
                 //down -> left
@@ -168,9 +255,11 @@ namespace RubiksCube
                     downFace[0, i] = leftFace[i, 2];
                 }
                 //up -> left
+                int d = 2;
                 for (var i = 0; i < 3; i++)
                 {
-                    leftFace[i, 2] = upBuffer[i];
+                    leftFace[i, 2] = upBuffer[d];
+                    d--;
                 }
             }
         }
@@ -230,12 +319,14 @@ namespace RubiksCube
 
         public void PrintCube()
         {
-            PrintCubeFace(frontFace);
-            PrintCubeFace(rightFace);
-            PrintCubeFace(upFace);
-            PrintCubeFace(downFace);
-            PrintCubeFace(leftFace);
-            PrintCubeFace(backFace);
+            PrintCubeFace(upFace, nameof(upFace));
+            //PrintCubeFace(leftFace, nameof(leftFace));
+            //PrintCubeFace(frontFace, nameof(frontFace));
+            //PrintCubeFace(rightFace, nameof(rightFace));
+            //PrintCubeFace(backFace, nameof(backFace));
+            PrintFourFaces(leftFace, frontFace, rightFace, backFace);
+            PrintCubeFace(downFace, nameof(downFace));
+
         }
 
         private void SeedCubeFace(string[,] face, string color)
@@ -249,24 +340,88 @@ namespace RubiksCube
             }
         }
 
-        private void PrintCubeFace(string[,] face)
+        private void PrintCubeFace(string[,] face, string name = "")
         {
             int count = 0;
             string row = "";
+
+            string tab = (name.Equals("upFace") || name.Equals("downFace") ? "\t\t\t".PadRight(4) : "");
+
+            if(name.Equals("downFace"))
+                Console.WriteLine(tab + "-----------------------");
+
 
             foreach (var item in face)
             {
                 row += item + "\t";
                 count++;
-
+                 
                 if (count % 3 == 0)
                 {
-                    Console.WriteLine(row + Environment.NewLine);
+                    Console.WriteLine(tab + row +  Environment.NewLine);
                     row = "";
                 }
             }
+            if(name.Equals("upFace"))
+                Console.WriteLine(tab + "-----------------------");
+        }
 
-            Console.WriteLine("--------------------");
+        private void PrintFourFaces(string[,] leftFace, string[,] frontFace, string[,] rightFace, string[,] backFace)
+        {
+            int count = 0;
+            string row = "";
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    row += leftFace[i, j] + "\t";
+                    count++;
+                    if (count % 3 == 0)
+                    {
+                        row += "|";
+                        count = 0;
+                    }
+                }
+
+                for (int j = 0; j < 3; j++)
+                {
+                    row += frontFace[i, j] + "\t";
+                    count++;
+                    if (count % 3 == 0)
+                    {
+                        row += "|";
+                        count = 0;
+                    }
+                }
+
+                for (int j = 0; j < 3; j++)
+                {
+                    row += rightFace[i, j] + "\t";
+                    count++;
+                    if (count % 3 == 0)
+                    {
+                        row += "|";
+                        count = 0;
+                    }
+                }
+
+                for (int j = 0; j < 3; j++)
+                {
+                    row += backFace[i, j] + "\t";
+
+                    count++;
+                    if (count % 3 == 0)
+                        row += Environment.NewLine;
+                }
+
+                if (i < 2)
+                    Console.WriteLine(row + Environment.NewLine);
+                else
+                    Console.WriteLine(row);
+
+                row = "";
+            }
         }
     }
 }
