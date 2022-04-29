@@ -8,6 +8,14 @@ To Run:
 
 Notes to reviewing devs:
 
-After first hour it was about at the stage of doing a rotation to the front face only, including transforming the rotated face. Additional face rotations and testing were done using additional time. A super fun challenge and would be great to finish with more time!
+Spent a few more hours to get solution solved, and then another couple refactoring it (couldn't help myself!). 
 
-Going forward, after coding remaining 4 rotations I would probably look at where the refactoring could be done to reduce duplicate code, i.e. there's likely an algorithm to reduce common 'brute force' instructions for certain rotations. In turn that may mean changing the data structures for the sides/rows/columns, but at first pass the 2D array seemed sufficient.
+The file named Cube.cs is my original 'brute force' solution for my 2D array approach, having a function for each L, R, F, B rotation with both directions using a bool for anti-clockwise/clockwise.
+
+The file named CubeRefactored.cs mainly remoeves the need for each L, R, F, B face to have its own rotating function with both directions and instead uses the relation oposite faces have with eachother to use one function to rotate two faces, e.g. the (L)eft face anti-clockwise (ACW) turn is the same directon as the (R)ight face clockwise (CW) turn.
+
+I also abstracted out some print functions to a utility class name Printable.
+
+In Programe.cs, change the variable "cube" type back to Cube for orignal solution.
+
+If I were to refactor one more step it would be the switch statement, i.e. the case of (L) and (R') rotations could be in the same catch and pass in the rotation name to the function instead of using a bool to indicate which face.
