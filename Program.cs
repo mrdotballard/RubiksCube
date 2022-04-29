@@ -6,9 +6,10 @@ namespace RubiksCube
     {
         static void Main(string[] args)
         {
-            //string[] rotationMoves = new string[] { "F", "R'", "U", "B'", "L", "D'" };
-            //string[] rotationMoves = new string[] { "F", "R'", "L'", "R", "F'", "L" };
-            string[] rotationMoves = new string[] { "F'", "L", "R", "F'", "R", "L'", "R'"};
+            string[] rotationMoves = new string[] { "F", "R'", "U", "B'", "L", "D'" };
+            //string[] rotationMoves = new string[] { "L", "D'" };
+            //string[] rotationMoves = new string[] { "F", "R'", "U'", "F", "B", "U'", "B", "U"};
+
             foreach (string item in rotationMoves)
             {
                 Console.Write(item + ", ");
