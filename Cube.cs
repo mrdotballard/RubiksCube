@@ -92,8 +92,6 @@ namespace RubiksCube
                 for (var i = 0; i < 3; i++)
                 {
                     upFace[i, 0] = backFace[c, 2];
-                    //upFace[1, 0] = backFace[1, 2];
-                    //upFace[2, 0] = backFace[0, 2];
                     c--;
                 }
 
@@ -102,8 +100,6 @@ namespace RubiksCube
                 for (var i = 0; i < 3; i++)
                 {
                     backFace[i, 2] = downFace[d, 0];
-                    //backFace[1, 2] = downFace[1, 0];
-                    //backFace[2, 2] = downFace[0, 0];
                     d--;
                 }
                 //front -> down
@@ -113,11 +109,6 @@ namespace RubiksCube
                     downFace[i, 0] = frontFace[i, 0];
                     frontFace[i, 0] = upBuffer[i];
                 }
-                //up-> front
-                //for (var i = 0; i < 3; i++)
-                //{
-                //    frontFace[i, 0] = upBuffer[i];
-                //}
             }
             else
             {
@@ -129,19 +120,11 @@ namespace RubiksCube
                     frontFace[i, 0] = downFace[i, 0];
                 }
 
-                //down -> front
-                //for (int i = 0; i < 3; i++)
-                //{
-                //    frontFace[i, 0] = downFace[i, 0];
-                //}
-
                 //back -> down
                 int c = 2;
                 for (int i = 0; i < 3; i++)
                 {
                     downFace[i, 0] = backFace[c, 2];
-                    //downFace[1, 0] = backFace[1, 2];
-                    //downFace[2, 0] = backFace[0, 2];
                     c--;
                 }
 
@@ -157,7 +140,7 @@ namespace RubiksCube
 
         static void RightRotation(string[,] upFace, string[,] backFace, string[,] downFace, string[,] frontFace, bool clockwise)
         {
-            string[] upBuffer = new string[3] { upFace[2, 2], upFace[1, 2], upFace[0, 2] };
+            string[] upBuffer = new string[3] { upFace[0, 2], upFace[1, 2], upFace[2, 2] };
 
             if (clockwise)
             {
@@ -167,7 +150,6 @@ namespace RubiksCube
                 {
                     upFace[i, 2] = frontFace[i, 2];
                     frontFace[i, 2] = downFace[i, 2];
-                    //backFace[i, 0] = upBuffer[i];
                 }
 
                 //back -> down
@@ -175,17 +157,16 @@ namespace RubiksCube
                 for (var i = 0; i < 3; i++)
                 {
                     downFace[i, 2] = backFace[c, 0];
-                    //downFace[1, 2] = backFace[1, 0];
-                    //downFace[2, 2] = backFace[0, 0];
                     c--;
                 }
 
                 //up -> back
+                int d = 2;
                 for (var i = 0; i < 3; i++)
                 {
-                    backFace[i, 0] = upBuffer[i];
+                    backFace[i, 0] = upBuffer[d];
+                    d--;
                 }
-
             }
             else
             {
@@ -194,8 +175,6 @@ namespace RubiksCube
                 for(var i = 0; i < 3; i++)
                 {
                     upFace[i, 2] = backFace[c, 0];
-                    //upFace[1, 2] = backFace[1, 0];
-                    //upFace[2, 2] = backFace[0, 0];
                     c--;
                 }
 
@@ -204,8 +183,6 @@ namespace RubiksCube
                 for (var i = 0; i < 3; i++)
                 {
                     backFace[i, 0] = downFace[d, 2];
-                    //backFace[1, 0] = downFace[1, 2];
-                    //backFace[2, 0] = downFace[0, 2];
                     d--;
                 }
 
@@ -215,18 +192,16 @@ namespace RubiksCube
                     downFace[i, 2] = frontFace[i, 2];
                 }
                 //up -> front
-                int e = 2;
                 for (var i = 0; i < 3; i++)
                 {
-                    frontFace[i, 2] = upBuffer[e];
-                    e--;
+                    frontFace[i, 2] = upBuffer[i];
                 }
             }
         }
 
         static void FrontRotation(string[,] rightFace, string[,] upFace, string[,] leftFace, string[,] downFace, bool clockwise)
         {
-                string[] upBuffer = new string[3] { upFace[2, 0], upFace[2, 1], upFace[2, 2] };
+                string[] upBuffer = new string[3] { upFace[2, 2], upFace[2, 1], upFace[2, 0] };
             if (clockwise)
             {
                 //left  -> up
@@ -246,14 +221,14 @@ namespace RubiksCube
                 for (var i = 0; i < 3; i++)
                 {
                     downFace[0, i] = rightFace[d, 0];
-                    //downFace[0, 1] = rightFace[1, 0];
-                    //downFace[0, 2] = rightFace[0, 0];
                     d--;
                 }
                 //up -> right
+                int e = 2;
                 for (var i = 0; i < 3; i++)
                 {
-                    rightFace[i, 0] = upBuffer[i];
+                    rightFace[i, 0] = upBuffer[e];
+                    e--;
                 }
             }
             else
@@ -269,8 +244,6 @@ namespace RubiksCube
                 for (var i = 0; i < 3; i++)
                 {
                     rightFace[i, 0] = downFace[0, c];
-                    //rightFace[1, 0] = downFace[0, 1];
-                    //rightFace[2, 0] = downFace[0, 0];
                     c--;
                 }
                 //left -> down
@@ -279,11 +252,9 @@ namespace RubiksCube
                     downFace[0, i] = leftFace[i, 2];
                 }
                 //up -> left
-                int d = 2;
                 for (var i = 0; i < 3; i++)
                 {
-                    leftFace[i, 2] = upBuffer[d];
-                    d--;
+                    leftFace[i, 2] = upBuffer[i];
                 }
             }
         }
@@ -305,8 +276,6 @@ namespace RubiksCube
                 for (var i = 0; i < 3; i++)
                 {
                     rightFace[i, 2] = downFace[2, c];
-                    //rightFace[1, 2] = downFace[2, 1];
-                    //rightFace[2, 2] = downFace[2, 0];
                     c--;
                 }
                 //left -> down
@@ -339,8 +308,6 @@ namespace RubiksCube
                 for (var i = 0; i < 3; i++)
                 {
                     downFace[2, i] = rightFace[d, 2];
-                    //downFace[2, 1] = rightFace[1, 2];
-                    //downFace[2, 2] = rightFace[0, 2];
                     d--;
                 }
                 //up -> right
@@ -354,43 +321,9 @@ namespace RubiksCube
 
         }
 
-        static void UpRotation(string[,] frontFace, string[,] backFace, string[,] leftFace, string[,] rightFace, bool clockwise)
-        {
-            string[] frontBuffer = new string[3] { frontFace[0, 0], frontFace[0, 1], frontFace[0, 2] };
-
-            if (clockwise)
-            {
-                //right -> front
-                //back -> right
-                //left -> back
-                //front - left
-                for (int i = 0; i < 3; i++)
-                {
-                    frontFace[0, i] = rightFace[0, i];
-                    rightFace[0, i] = backFace[0, i];
-                    backFace[0, i] = leftFace[0, i];
-                    leftFace[0, i] = frontBuffer[i];
-                }
-            }
-            else
-            {
-                //left -> front
-                //back -> left
-                //right -> back
-                //front -> right
-                for (int i = 0; i < 3; i++)
-                {
-                    frontFace[0, i] = leftFace[0, i];
-                    leftFace[0, i] = backFace[0, i];
-                    backFace[0, i] = rightFace[0, i];
-                    rightFace[0, i] = frontBuffer[i];
-                }
-            }
-        }
-
         static void UpCW_DownACW_Rotation(string[,] frontFace, string[,] backFace, string[,] leftFace, string[,] rightFace, bool up)
         {
-            int row = up ? 0 : 2;
+            int row = up ? 0 : 2; //if upFace is rotating then row is 0, else 2 for downFace
             string[] frontBuffer = new string[3] { frontFace[row, 0], frontFace[row, 1], frontFace[row, 2] };
             //int row = 0;
 
@@ -412,7 +345,7 @@ namespace RubiksCube
 
         static void UpACW_DownCW_Rotation(string[,] frontFace, string[,] backFace, string[,] leftFace, string[,] rightFace, bool up)
         {
-            int row = up ? 0 : 2;
+            int row = up ? 0 : 2; //if upFace is rotating then row is 0, else 2 for downFace
             string[] frontBuffer = new string[3] { frontFace[row, 0], frontFace[row, 1], frontFace[row, 2] };
 
             // UP ANTI-CLOCKWISE
