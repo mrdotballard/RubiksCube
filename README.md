@@ -1,6 +1,6 @@
 # RubiksCube
 
-Code to represent rotations to the faces of a Rubiks cube, as visualised on www.rubiks-cube-solver.com.
+Code to represent rotations to the faces of a Rubiks cube, as visualised on www.rubiks-cube-solver.com, written in C#.
 
 To Run:
 1) Clone repository into Visual Studio and build and run for an output to the console
